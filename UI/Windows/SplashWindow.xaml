@@ -1,0 +1,17 @@
+<Window x:Class="MCDSaveEdit.UI.SplashWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="MCDSaveEdit is starting" Width="620" Height="490" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="True">
+    <Grid Margin="28"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <StackPanel>
+            <Border Width="52" Height="52" CornerRadius="12" Background="{DynamicResource AppSelectionBrush}" HorizontalAlignment="Left"><TextBlock Text="◇" FontSize="28" Foreground="{DynamicResource AppAccentBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+            <TextBlock Text="MCDSaveEdit" Style="{StaticResource PageTitleText}" Margin="0,16,0,0"/><TextBlock Text="COMMUNITY EDITION" Style="{StaticResource CaptionText}" FontWeight="SemiBold"/>
+        </StackPanel>
+        <Grid Grid.Row="1" Margin="0,24,0,16"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+            <TextBlock Text="{Binding CurrentStage, Mode=OneWay}" Style="{StaticResource SectionTitleText}"/><TextBlock Grid.Row="1" Text="{Binding CurrentMessage, Mode=OneWay}" Style="{StaticResource BodyText}" Margin="0,5,0,12"/>
+            <ProgressBar Grid.Row="2" Height="4" IsIndeterminate="True" Foreground="{DynamicResource AppAccentBrush}" Background="{DynamicResource AppElevatedBrush}"/>
+            <Grid Grid.Row="3" Margin="0,18,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                <StackPanel><TextBlock><Run Text="{Binding SettingsMarker, Mode=OneWay}" Foreground="{DynamicResource AppSuccessBrush}"/><Run Text="  Loading settings"/></TextBlock><TextBlock Margin="0,9,0,0"><Run Text="{Binding GameMarker, Mode=OneWay}" Foreground="{DynamicResource AppAccentBrush}"/><Run Text="  Locating game files"/></TextBlock><TextBlock Margin="0,9,0,0"><Run Text="{Binding DataMarker, Mode=OneWay}" Foreground="{DynamicResource AppAccentBrush}"/><Run Text="  Loading game data"/></TextBlock><TextBlock Margin="0,9,0,0"><Run Text="{Binding EditorMarker, Mode=OneWay}" Foreground="{DynamicResource AppAccentBrush}"/><Run Text="  Preparing editor"/></TextBlock></StackPanel>
+                <Border x:Name="detailsPanel" Grid.Column="1" Style="{StaticResource ElevatedCard}" Padding="8" Visibility="Collapsed"><TextBox x:Name="textbox" IsReadOnly="True" FontFamily="Consolas" FontSize="10" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" BorderThickness="0" Background="Transparent"/></Border>
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal"><Button x:Name="detailsButton" Content="Show Details" Click="detailsButton_Click"/><Button Content="Copy Diagnostics" Margin="8,0,0,0" Click="copyButton_Click"/></StackPanel>
+    </Grid>
+</Window>

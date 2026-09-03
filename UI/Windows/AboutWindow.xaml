@@ -1,0 +1,61 @@
+<Window x:Class="MCDSaveEdit.UI.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About MCDSaveEdit Community" Height="590" Width="680"
+        MinHeight="480" MinWidth="560" WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+    <Grid Margin="24">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Text="MCDSaveEdit" Style="{StaticResource PageTitleText}"/>
+                <TextBlock Text="Community Edition · unofficial maintained fork" Style="{StaticResource BodyText}" Margin="0,4,0,0"/>
+            </StackPanel>
+            <Border Grid.Column="1" Style="{StaticResource StatusBadge}" VerticalAlignment="Center">
+                <TextBlock x:Name="versionLabel" Text="Version" FontWeight="SemiBold"/>
+            </Border>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" Margin="0,20,0,16" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Border Style="{StaticResource ModernCard}" Margin="0,0,0,12">
+                    <StackPanel>
+                        <TextBlock Text="Project" Style="{StaticResource SectionTitleText}"/>
+                        <TextBlock Margin="0,8,0,0" TextWrapping="Wrap">
+                            Original application © 2020–2022 Michael Holt (CutFlame). This maintained community fork is distributed under the MIT license.
+                        </TextBlock>
+                        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap">
+                            <Hyperlink NavigateUri="https://github.com/AC9892/MCDSaveEdit">Community repository</Hyperlink>
+                            <Run Text="  ·  "/>
+                            <Hyperlink NavigateUri="https://github.com/CutFlame/MCDSaveEdit">Original repository</Hyperlink>
+                            <Run Text="  ·  "/>
+                            <Hyperlink NavigateUri="https://github.com/AC9892/MCDSaveEdit/blob/master/LICENSE">License</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource ModernCard}" Margin="0,0,0,12">
+                    <StackPanel>
+                        <TextBlock Text="Credits and licenses" Style="{StaticResource SectionTitleText}"/>
+                        <TextBlock Margin="0,8,0,0" TextWrapping="Wrap" LineHeight="22">
+                            Minecraft Dungeons images © Mojang. DungeonTools (AGPL 3.0), Microsoft.Bcl.AsyncInterfaces (MIT), Fody and Costura.Fody (MIT), FModel (GPL 3.0), PakReader (MIT), and Game-icons.net (CC BY 3.0).
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource ModernCard}">
+                    <StackPanel>
+                        <TextBlock Text="Support the original author" Style="{StaticResource SectionTitleText}"/>
+                        <WrapPanel Margin="0,10,0,0">
+                            <Button Content="Buy Me a Coffee" Click="buyMeACoffeeButton_Click" Margin="0,0,8,8"/>
+                            <Button Content="Ko-fi" Click="koFiButton_Click" Margin="0,0,8,8"/>
+                            <Button Content="Patreon" Click="patreonButton_Click" Margin="0,0,8,8"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Grid.Row="2" Content="Close" Width="92" HorizontalAlignment="Right" IsCancel="True"/>
+    </Grid>
+</Window>

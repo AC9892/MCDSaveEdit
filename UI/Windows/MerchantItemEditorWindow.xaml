@@ -1,0 +1,19 @@
+<Window x:Class="MCDSaveEdit.UI.MerchantItemEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:MCDSaveEdit.UI"
+        Title="Edit merchant item" Width="1000" Height="720" MinWidth="820" MinHeight="600"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid Margin="16">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <StackPanel><TextBlock x:Name="titleText" Text="Edit item" Style="{StaticResource PageTitleText}"/><TextBlock x:Name="restrictionText" Style="{StaticResource BodyText}" Margin="0,4,0,12" TextWrapping="Wrap"/></StackPanel>
+        <Grid Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition Width="410"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <Border Style="{StaticResource ModernCard}" Padding="12"><local:ItemScreen x:Name="itemScreen"/></Border>
+            <Grid Grid.Column="2">
+                <Border x:Name="enchantmentEmptyPanel" Style="{StaticResource ModernCard}"><StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="360"><TextBlock Text="◇" FontSize="38" Foreground="{DynamicResource AppAccentBrush}" HorizontalAlignment="Center"/><TextBlock Text="Select an enchantment diamond" Style="{StaticResource SectionTitleText}" HorizontalAlignment="Center" Margin="0,12,0,6"/><TextBlock Text="Choose one of the item's enchantment slots on the left to change its type or tier. Gilded enchantments are edited from the gilded row." Style="{StaticResource BodyText}" TextAlignment="Center" TextWrapping="Wrap"/></StackPanel></Border>
+                <local:EnchantmentScreen x:Name="enchantmentScreen" Visibility="Collapsed"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Margin="0,14,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock x:Name="validationText" Style="{StaticResource CaptionText}" Foreground="{DynamicResource AppWarningBrush}" VerticalAlignment="Center"/><Button Grid.Column="1" Content="Cancel" Click="cancelButton_Click" Margin="0,0,8,0"/><Button Grid.Column="2" Content="Apply Item" Style="{StaticResource PrimaryButton}" Click="applyButton_Click"/></Grid>
+    </Grid>
+</Window>
