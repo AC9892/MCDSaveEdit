@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections;
+using System.IO;
+#nullable enable
+
+namespace MCDSaveEdit.Data
+{
+    public static partial class Constants
+    {
+        public const string PAKS_FILTER_STRING = "/Dungeons/Content";
+
+        public const string FIRST_PAK_FILENAME = "pakchunk0-WindowsNoEditor.pak";
+
+        //NOTE: default location of files for Launcher version: %localappdata%\Mojang\products\dungeons\dungeons\Dungeons\Content\Paks
+        public static string LAUNCHER_PAKS_FOLDER_PATH {
+            get {
+                var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                return Path.Combine(folderPath, "Mojang", "products", "dungeons", "dungeons", "Dungeons", "Content", "Paks");
+            }
+        }
+
+        //NOTE: default location of files for Steam version: C:\Program Files (x86)\Steam\steamapps\common\MinecraftDungeons\Dungeons\Content\Paks
+        public static string STEAM_PAKS_FOLDER_PATH {
+            get {
+                var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                return Path.Combine(folderPath, "Steam", "steamapps", "common", "MinecraftDungeons", "Dungeons", "Content", "Paks");
+            }
+        }
+
+        //NOTE: default location of files for XBoxGames version: C:\XboxGames\Minecraft Dungeons\Content\Dungeons\Content\Paks
+        public static string XBOX_PC_GAMES_PAKS_FOLDER_PATH {
+            get {
+                var folderPath = Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.Windows));
+                return Path.Combine(folderPath, "XboxGames", "Minecraft Dungeons", "Content", "Dungeons", "Content", "Paks");
+            }
+        }
+
+        //NOTE: location of files for WinStore version is where ever the UWPDumper script dumped them
+        public static string? WINSTORE_PAKS_FOLDER_PATH_IF_EXISTS {
+            get {
+                // Resolve the optional WinRT API at runtime so compiling does not
+                // depend on one particular Windows SDK metadata version.
+                Type? packageManagerType = Type.GetType(
+                    "Windows.Management.Deployment.PackageManager, Windows, ContentType=WindowsRuntime",
+                    throwOnError: false);
+                if (packageManagerType == null) return null;
+
+                try {
+                    object? packageManager = Activator.CreateInstance(packageManagerType);
+                    object? result = packageManagerType
+                        .GetMethod("FindPackagesForUser", new[] { typeof(string), typeof(string) })?
+                        .Invoke(packageManager, new object[] { string.Empty, "Microsoft.Lovika_8wekyb3d8bbwe" });
+
+                    if (!(result is IEnumerable packages)) return null;
+
+                    foreach (object package in packages) {
+                        bool isDevelopmentMode = package.GetType()
+                            .GetProperty("IsDevelopmentMode")?
+                            .GetValue(package) as bool? ?? false;
+                        if (!isDevelopmentMode) continue;
+
+                        object? installedLocation = package.GetType()
+                            .GetProperty("InstalledLocation")?
+                            .GetValue(package);
+                        string? installedPath = installedLocation?.GetType()
+                            .GetProperty("Path")?
+                            .GetValue(installedLocation) as string;
+                        if (!string.IsNullOrWhiteSpace(installedPath)) {
+                            return Path.Combine(installedPath, "Dungeons", "Content", "Paks");
+                        }
+                    }
+                }
+                catch {
+                    // Store-package discovery is optional; manual selection remains available.
+                }
+
+                // Game has not been run through the script, meaning the files are not accessible
+                return null;
+            }
+        }
+
+        //NOTE: default location of save game files: %userprofile%\Saved Games\Mojang Studios\Dungeons\2533274911688652\Characters
+        public static string FILE_DIALOG_INITIAL_DIRECTORY {
+            get {
+                var userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                return Path.Combine(userFolderPath, "Saved Games", "Mojang Studios", "Dungeons");
+            }
+        }
+
+        public const string ENCRYPTED_FILE_EXTENSION = ".dat";
+        public const string DECRYPTED_FILE_EXTENSION = ".json";
+    }
+}
