@@ -1,146 +1,101 @@
-# &nbsp;[![icon](MCDSaveEdit/Properties/icon.ico)]() Minecraft: Dungeons Save File Editor
+# MCDSaveEdit Community Fork
 
-[![GitHub](https://img.shields.io/github/license/cutflame/mcdsaveedit)](https://github.com/CutFlame/MCDSaveEdit/blob/master/LICENSE)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/cutflame/mcdsaveedit?label=latest)](https://github.com/CutFlame/MCDSaveEdit/releases/latest)
-[![GitHub Release Date](https://img.shields.io/github/release-date/cutflame/mcdsaveedit)](https://github.com/CutFlame/MCDSaveEdit/releases/latest)
-[![GitHub all releases](https://img.shields.io/github/downloads/cutflame/mcdsaveedit/total)](https://github.com/CutFlame/MCDSaveEdit/releases)
-[![Patreon pledgers](https://img.shields.io/endpoint?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dcutflame%26type%3Dpatrons&style=flat)](https://patreon.com/cutflame)
+[![CI](https://github.com/AC9892/MCDSaveEdit/actions/workflows/ci.yml/badge.svg)](https://github.com/AC9892/MCDSaveEdit/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/AC9892/MCDSaveEdit)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/AC9892/MCDSaveEdit?label=latest)](https://github.com/AC9892/MCDSaveEdit/releases/latest)
 
-Windows application for modifying [Minecraft: Dungeons](https://www.minecraft.net/en-us/about-dungeons/) save files.
+MCDSaveEdit Community is an unofficial, maintained fork of Michael Holt's (CutFlame) Minecraft: Dungeons Save File Editor. It remains a Windows desktop editor and preserves the original save parsing and editing approach.
 
-#### DISCLAIMER: Please keep backups of your save files! This app does not guarantee your save file to be playable after editing!
+The original project and its contributors are credited at [CutFlame/MCDSaveEdit](https://github.com/CutFlame/MCDSaveEdit). This fork is maintained at [AC9892/MCDSaveEdit](https://github.com/AC9892/MCDSaveEdit). It is not affiliated with Mojang Studios or Microsoft.
 
-<img src="Screenshots/screenshot.png"/>
+> **Back up your saves.** Editing can produce a save the game cannot load. Community 1.6 automatically creates timestamped backups before replacing existing files, but keeping a separate copy of the whole save directory is still recommended.
 
----
+![MCDSaveEdit screenshot](Screenshots/screenshot.png)
 
-### Installing and Running
+## Features
 
-For full features and functionality you need Minecraft: Dungeons installed and preferably in the default install location.
+- Opens encrypted Minecraft Dungeons character `.dat` saves and supported decrypted JSON saves.
+- Edits inventory, storage chest, equipment, currencies, enchantments, passives, and character statistics.
+- Uses installed game `.pak` files for names and images, with bundled placeholders when game content is unavailable.
+- Detects Steam, Minecraft Launcher, Xbox app/Microsoft Store, and common Steam Deck/Proton installations without scanning whole drives.
+- Creates timestamped backups and replaces existing saves atomically.
+- Preserves unrecognized root-level save fields during JSON round trips.
+- Validates save structure, currencies, items, power, enchantments, passives, and duplicate indexes before writing.
+- Provides persistent backup/validation settings and a metadata-rich backup browser.
+- Tracks unsaved changes and prompts before opening another save, restoring, or closing.
+- Includes persistent Light, Dark, and System themes, image-cache controls, local diagnostic logs, and a privacy-safe diagnostic report.
 
-1. Download and extract the latest release (MCDSaveEdit_*.zip) from [the releases section](https://github.com/CutFlame/MCDSaveEdit/releases)
+## Installation and supported platforms
 
----
+Download a ZIP from this fork's [releases page](https://github.com/AC9892/MCDSaveEdit/releases), extract it, and run `MCDSaveEdit.exe`.
 
-### Troubleshooting
+- Supported: Windows 10 and Windows 11, x64, with .NET Framework 4.8.
+- Community-supported: Steam Deck/Linux through Wine or Proton; see [STEAMDECK.md](STEAMDECK.md).
+- Console/container saves may need extraction or decryption outside this application and are not guaranteed to work.
 
-##### Fix Missing Images
+## Game file detection
 
-<img src="Screenshots/GameContentLocationDialog.png"/>
+Full names and images require readable Minecraft Dungeons `.pak` files. Known locations include:
 
-If you see this popup, that means it couldn't find the game content in the default location. You need to provide the path to these `.pak` files:
+- Minecraft Launcher: `%LOCALAPPDATA%\Mojang\products\dungeons\dungeons\Dungeons\Content\Paks`
+- Steam: `%PROGRAMFILES(X86)%\Steam\steamapps\common\MinecraftDungeons\Dungeons\Content\Paks`
+- Xbox app / Microsoft Store: `C:\XboxGames\Minecraft Dungeons\Content\Dungeons\Content\Paks`
 
-<img src="Screenshots/LocatePakFiles.png"/>
+If automatic detection fails, select the `Paks` directory when prompted. Choosing no game content keeps basic save editing available with fallback images.
 
-##### Default location of pak files
+You can change or rescan the location later under **Settings > Game Files**. The selected path is validated and saved per Windows user. The detector checks a bounded list of known layouts and Steam libraries; it does not recursively scan an entire drive.
 
-Minecraft Launcher:
+## Save formats
 
-`%localappdata%\Mojang\products\dungeons\dungeons\Dungeons\Content\Paks`
+Minecraft Dungeons character files are normally encrypted `.dat` files. The editor decrypts a selected character in memory, edits its structured JSON data, and encrypts it again when writing a normal character save. It can also open already-decrypted JSON saves used for inspection or recovery. File contents are detected instead of trusting the extension alone, so decrypted JSON may still use `.dat`. Plain text, unrelated binary data, malformed JSON, and unsupported encrypted data are rejected without modifying the source.
 
-Steam:
+## Usage
 
-`%programfiles(x86)%\Steam\steamapps\common\MinecraftDungeons\Dungeons\Content\Paks`
+1. Copy your save directory somewhere safe. Character saves normally live below `%USERPROFILE%\Saved Games\Mojang Studios\Dungeons`.
+2. Choose **File > Open** and select a character `.dat` file.
+3. Edit the character and choose **File > Save** or **Save As**.
+4. Existing targets are backed up under a sibling `Backups` directory before replacement. Use **File > Restore Backup** to browse them; the current save is backed up again before restoration.
+5. Use **Settings** to configure backup retention, validation, theme, game files, and local logging, or **Tools > Validate Current Save** to review and copy a report without saving.
 
-Microsoft Store:
+## Building
 
-`C:\XboxGames\Minecraft Dungeons\Content\Dungeons\Content\Paks`
+Requirements:
 
-If you're not sure which version you have, additional information may be found on [Dokustash - stash.dokucraft.co.uk](https://stash.dokucraft.co.uk/?help=modding-dungeons)
+- Windows 10/11
+- Visual Studio Build Tools 2019 or Visual Studio 2019/2022 with **.NET desktop build tools** and the .NET Framework 4.8 targeting pack
+- NuGet CLI or Visual Studio package restore
 
-##### Application Stopped Working
-
-If during launch you get a popup saying that MCDSaveEdit has stopped working,
-this means an internal error ocurred and could mean various issues.
-MCDSaveEdit has a dependency on .NET Framework 4.8 so you could try installing that.
-
-- [.NET Framework Offline installer](https://support.microsoft.com/en-us/topic/microsoft-net-framework-4-8-offline-installer-for-windows-9d23f658-3b97-68ab-d013-aa3c3e7495e0)
-
----
-
-### How to Use
-
-1. Go to `File > Open` in the menu bar.
-2. Open the folder `%HOMEPATH%\Saved Games\Mojang Studios\Dungeons`. *Be sure to backup this folder before editing your save files.*
-3. You will see a folder with a 16-digit number (E.g. 2612325419657064). Open this folder, then open the "Characters" folder.
-    1. NOTE: If multiple Mojang or Microsoft accounts were used in-game you might see more than one folder. 
-4. Select one of the files ending in `.dat`. There will be one for each character.
-5. Click `Open` and edit your save. When ready go to `File > Save` or `File > Save As...` to save your edits.
-
-<p></p>
-
-##### Adding Items
-
-<img src="Screenshots/AddItemTutorial.png"/>
-
-<p></p>
-
-##### Adding/Changing Enchantments
-
-<img src="Screenshots/AddEnchantmentTutorial.png"/>
-
-<p></p>
-
----
-
-### Compiling
-
-This application was developed entirely in Visual Studio 2022.
-
-When cloning be sure to recurse through submodules because there are 2:
-
-- [DungeonTools](https://github.com/CutFlame/DungeonTools/tree/save-file-editor-1.1)
-- [PakReader](https://github.com/CutFlame/PakReader/tree/MCDSaveEdit)
-
-Provide the AES key to decrypt the game files:
-
-`MCDSaveEdit\Data\Secrets.cs`
-```csharp
-namespace MCDSaveEdit.Data
-{
-    public static class Secrets
-    {
-        // Fill in the value for this one
-        public static AesKey[] PAKS_AES_KEYS = new AesKey[] {
-            new AesKey("<AES key for unlocking the MCD .pak files>", ""),
-        };
-
-        // You can leave these empty, they just need to exist
-        public const string GAME_ANALYTICS_GAME_KEY = "";
-        public const string GAME_ANALYTICS_SECRET_KEY = "";
-    }
-}
+```powershell
+git clone --recurse-submodules https://github.com/AC9892/MCDSaveEdit.git
+cd MCDSaveEdit
+nuget restore MCDSaveEdit.sln
+Copy-Item MCDSaveEdit/Data/Secrets.example.cs MCDSaveEdit/Data/Secrets.cs
+.\build.ps1 -Configuration Debug
 ```
 
-Another bit of trouble you might run into is the error: "The referenced component 'Windows' could not be found" in `MCDSaveEdit/Data/Constants.cs` line 3: `using Windows.Management.Deployment;`
+`Secrets.cs` is ignored by Git. Add a valid Minecraft Dungeons `.pak` AES key only for local game-content testing. Never commit keys. Save encryption does not use that game-content key.
 
-- Try the accepted answer [here](https://stackoverflow.com/questions/54454214/how-to-access-windows-management-deployment-namespace-in-a-desktop-project-in-vs).
-- This bit of code is only required for the Microsoft Store version, so if you have the launcher version you can just comment out lines 3 and 54 through 61.
+## Development and submodules
 
----
+The solution is currently .NET Framework 4.8 and uses legacy `packages.config`. Migration is staged to avoid breaking WPF, save encryption, and `.pak` extraction. See [docs/MODERNIZATION_PLAN.md](docs/MODERNIZATION_PLAN.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
-### Legal Disclaimer
+The repository pins compatible branches of:
 
-This project is not affiliated with Mojang Studios, Microsoft, XBox Game Studios, Double Eleven or the Minecraft brand.
+- [DungeonTools](https://github.com/CutFlame/DungeonTools/tree/save-file-editor-1.1), used for save encryption/decryption.
+- [PakReader](https://github.com/CutFlame/PakReader/tree/MCDSaveEdit), used for Unreal `.pak` content.
 
-"Minecraft" is a trademark of Mojang Synergies AB.
+Initialize them with `git submodule update --init --recursive`; do not replace their pinned revisions without compatibility testing.
 
-Other trademarks referenced herein are property of their respective owners.
+## Known limitations
 
-### External Credits and Licenses
+- Raw tree editing, undo/redo, item import/export, and broader nested unknown-field preservation remain 1.7 roadmap work.
+- Validation intentionally avoids altering unknown fields and only performs strict ID checks when game data is loaded.
+- Unknown fields are currently preserved at the save root; nested model types still need an extension-data audit.
+- Game-content integration tests need legally obtained local game files and are skipped in CI.
+- The legacy .NET Framework/package format and pinned SkiaSharp/System.Text.Json versions remain until a separately tested SDK-style migration; see [docs/DEPENDENCY_AUDIT.md](docs/DEPENDENCY_AUDIT.md).
 
-Images from the game are subject to copyright by Mojang. They are extracted at runtime from the .pak files that are installed as part of the Minecraft: Dungeons game files.
+## Credits and license
 
-[DungeonTools](https://github.com/HellPie/DungeonTools) © Diego Russi ([AGPL 3.0](https://github.com/HellPie/DungeonTools/blob/master/LICENSE))
+MCDSaveEdit was created by Michael Holt ([CutFlame](https://github.com/CutFlame)). This community fork does not claim original authorship. Existing contributors, dependency authors, and runtime-extracted Mojang assets retain their respective attribution and licenses.
 
-[Microsoft.Bcl.AsyncInterfaces](https://github.com/dotnet/corefx) © Microsoft ([MIT](https://licenses.nuget.org/MIT))
-
-[Fody](https://github.com/Fody/Fody) © Simon Cropp ([MIT](https://github.com/Fody/Fody/blob/master/License.txt))
-
-[Costura.Fody](https://github.com/Fody/Costura) © Simon Cropp and contributors ([MIT](https://github.com/Fody/Costura/blob/develop/LICENSE))
-
-[FModel](https://github.com/iAmAsval/FModel) © Free Software Foundation, Inc. ([GPL 3.0](https://github.com/iAmAsval/FModel/blob/master/LICENSE))
-
-[PakReader](https://github.com/WorkingRobot/PakReader) © Aleks Margarian ([MIT](https://github.com/WorkingRobot/PakReader/blob/master/LICENSE))
-
-[Game-icons.net](https://game-icons.net/) © Lorc, Delapouite and contributors ([CC BY 3.0](http://creativecommons.org/licenses/by/3.0/))
+Licensed under the [MIT License](LICENSE). Minecraft is a trademark of Mojang Synergies AB. See the original project for its full historical credits.
