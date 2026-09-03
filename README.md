@@ -1,6 +1,9 @@
 # MCDSaveEdit Community Fork
 
-[![CI](https://github.com/AC9892/MCDSaveEdit/actions/workflows/ci.yml/badge.svg)](https://github.com/AC9892/MCDSaveEdit/actions/workflows/ci.yml)
+[![GitHub](https://img.shields.io/github/license/cutflame/mcdsaveedit)](https://github.com/CutFlame/MCDSaveEdit/blob/master/LICENSE)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/cutflame/mcdsaveedit?label=latest)](https://github.com/CutFlame/MCDSaveEdit/releases/latest)
+[![GitHub Release Date](https://img.shields.io/github/release-date/cutflame/mcdsaveedit)](https://github.com/CutFlame/MCDSaveEdit/releases/latest)
+[![GitHub all releases](https://img.shields.io/github/downloads/cutflame/mcdsaveedit/total)](https://github.com/CutFlame/MCDSaveEdit/releases)
 [![License](https://img.shields.io/github/license/AC9892/MCDSaveEdit)](LICENSE)
 [![Latest release](https://img.shields.io/github/v/release/AC9892/MCDSaveEdit?label=latest)](https://github.com/AC9892/MCDSaveEdit/releases/latest)
 
