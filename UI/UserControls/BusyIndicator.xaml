@@ -1,0 +1,8 @@
+<UserControl x:Class="MCDSaveEdit.UI.BusyIndicator" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Style="{StaticResource ElevatedCard}" Padding="20" CornerRadius="10">
+        <StackPanel>
+            <TextBlock Text="Working..." Style="{StaticResource SectionTitleText}" HorizontalAlignment="Center"/>
+            <ProgressBar Height="4" Margin="0,14,0,0" IsIndeterminate="True" Foreground="{DynamicResource AppAccentBrush}" Background="{DynamicResource AppCardBrush}"/>
+        </StackPanel>
+    </Border>
+</UserControl>

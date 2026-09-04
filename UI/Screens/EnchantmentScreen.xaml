@@ -1,0 +1,46 @@
+<UserControl x:Class="MCDSaveEdit.UI.EnchantmentScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MCDSaveEdit.UI"
+             mc:Ignorable="d" d:DesignHeight="430" d:DesignWidth="560">
+    <Border Style="{StaticResource ElevatedCard}" Padding="20">
+        <Grid>
+            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                <TextBlock Text="Enchantment" Style="{StaticResource SectionTitleText}" VerticalAlignment="Center"/>
+                <Button Grid.Column="1" Content="&#x2715;" Style="{StaticResource IconButton}" ToolTip="Close editor" Click="closeButton_Click"/>
+            </Grid>
+            <Grid Grid.Row="1" Margin="0,18">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="170"/></Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center" Margin="4,0,18,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="powerfulImage" Height="22" Width="22" Margin="0,0,8,0"/>
+                        <TextBlock x:Name="powerfulLabel" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock x:Name="enchantmentLabel" Style="{StaticResource PageTitleText}" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="enchantmentDescLabel" Style="{StaticResource BodyText}" Margin="0,8,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+                <Button x:Name="enchantmentImageButton" Grid.Column="1" Width="150" Height="150" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Center" ToolTip="Choose enchantment" Click="enchantmentImageButton_Click">
+                    <Grid><Image x:Name="enchantmentBackgroundImage"/><Image x:Name="enchantmentImage" Margin="14"/></Grid>
+                </Button>
+            </Grid>
+            <Border Grid.Row="2" Style="{StaticResource ModernCard}" Padding="14">
+                <Grid>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock x:Name="tierLabel" Text="Tier" Style="{StaticResource BodyText}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBox x:Name="tierTextBox" Width="54" TextAlignment="Right" VerticalContentAlignment="Center" TextChanged="tierTextBox_TextChanged"/>
+                        <local:Stepper Width="20" Height="30" Margin="3,0,0,0" UpButtonClick="upButton_Click" DownButtonClick="downButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Image x:Name="enchantmentPointsSymbolImage" Height="28" Width="28" Margin="0,0,8,0"/>
+                        <TextBlock x:Name="pointsCostLabel" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

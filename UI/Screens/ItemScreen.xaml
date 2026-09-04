@@ -1,0 +1,165 @@
+<UserControl x:Class="MCDSaveEdit.UI.ItemScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MCDSaveEdit.UI"
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="360">
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled"
+                  Padding="0,0,4,0">
+        <StackPanel>
+            <Label x:Name="nameLabel"
+                   Content="Evocation Robe"
+                   FontSize="21"
+                   FontWeight="SemiBold"
+                   Padding="4,2"
+                   Margin="0,0,0,6"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="145"/>
+                    <ColumnDefinition Width="118"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <Grid Margin="0,0,0,7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="22"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="powerTextBox"
+                                 TextChanged="powerTextBox_TextChanged"
+                                 Text="1234567890"
+                                 FontSize="19"
+                                 TextAlignment="Right"
+                                 VerticalContentAlignment="Center"
+                                 MinWidth="70"/>
+                        <local:Stepper Grid.Column="1"
+                                       UpButtonClick="upButton_Click"
+                                       DownButtonClick="downButton_Click"/>
+                    </Grid>
+
+                    <ComboBox x:Name="rarityComboBox"
+                              SelectionChanged="rarityComboBox_SelectionChanged"
+                              FontSize="16"
+                              SelectedIndex="0"
+                              VerticalContentAlignment="Center"
+                              Margin="0,0,0,7">
+                        <ComboBoxItem x:Name="commonComboBoxItem" Content="*Common*"/>
+                        <ComboBoxItem x:Name="rareComboBoxItem" Content="*Rare*"/>
+                        <ComboBoxItem x:Name="uniqueComboBoxItem" Content="*Unique*"/>
+                    </ComboBox>
+
+                    <WrapPanel>
+                        <Button x:Name="markedNewButton"
+                                Padding="5,2" Margin="0,0,5,5"
+                                IsEnabled="false"
+                                Click="markedNewButton_Click">
+                            <CheckBox x:Name="markedNewButtonCheckBox"
+                                      IsEnabled="false">*New*</CheckBox>
+                        </Button>
+                        <Button x:Name="upgradedButton"
+                                Padding="5,2" Margin="0,0,5,5"
+                                IsEnabled="false"
+                                Click="upgradedButton_Click">
+                            <CheckBox x:Name="upgradedButtonCheckBox"
+                                      IsEnabled="false">*Upgraded*</CheckBox>
+                        </Button>
+                        <Button x:Name="giftedButton"
+                                Padding="5,2" Margin="0,0,5,5"
+                                IsEnabled="false"
+                                Click="giftedButton_Click">
+                            <CheckBox x:Name="giftedButtonCheckBox"
+                                      IsEnabled="false">*Gifted*</CheckBox>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+
+                <Button x:Name="inventoryItemButton"
+                        Grid.Column="1"
+                        Width="112" Height="112"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Padding="4"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        Foreground="{x:Null}"
+                        Click="inventoryItemButton_Click">
+                    <Image x:Name="inventoryIconImage"
+                           Source="../../Images/Armor.png"
+                           Stretch="Uniform"/>
+                </Button>
+            </Grid>
+
+            <ScrollViewer x:Name="armorPropertiesScrollViewer"
+                          MaxHeight="150"
+                          VerticalScrollBarVisibility="Auto"
+                          Margin="0,4,0,0">
+                <StackPanel x:Name="armorPropertiesStack" Margin="3">
+                    <Button HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center"
+                            MinHeight="32" Padding="0"
+                            Background="{x:Null}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="20" Height="20" Margin="5"/>
+                            <Label Content="Common Movespeed"
+                                   FontSize="15"
+                                   VerticalAlignment="Center"
+                                   Padding="0"/>
+                        </StackPanel>
+                    </Button>
+                    <Label Content="Common Movespeed" FontSize="15"/>
+                    <Label Content="Common Movespeed" FontSize="15"/>
+                </StackPanel>
+            </ScrollViewer>
+
+            <local:NetheriteEnchantmentControl x:Name="netheriteEnchantmentControl"
+                                               Height="40"
+                                               Margin="3,4"/>
+
+            <TextBlock x:Name="descLabel"
+                       Text="Evocation Robe"
+                       FontSize="15"
+                       TextWrapping="Wrap"
+                       Padding="4"
+                       Margin="0,0,0,8"/>
+
+            <WrapPanel HorizontalAlignment="Right" Margin="0,0,0,5">
+                <Button x:Name="duplicateItemButton"
+                        Content="*Duplicate*"
+                        MinWidth="72" Padding="8,4" Margin="4,0,0,4"
+                        IsEnabled="false"
+                        Click="duplicateItemButton_Click"/>
+                <Button x:Name="deleteItemButton"
+                        Content="*Delete*"
+                        MinWidth="64" Padding="8,4" Margin="4,0,0,4"
+                        IsEnabled="false"
+                        Click="deleteItemButton_Click"/>
+            </WrapPanel>
+
+            <Button x:Name="moveItemButton"
+                    Content="*Transfer to Inventory*"
+                    MinHeight="32" Margin="0,0,0,5"
+                    IsEnabled="false"
+                    Click="moveItemButton_Click"/>
+            <Button x:Name="moveItemButtonExtra"
+                    Content="*Transfer to Storage*"
+                    MinHeight="32" Margin="0,0,0,8"
+                    IsEnabled="false"
+                    Click="moveItemButton_Click"/>
+
+            <Grid Height="150" MinWidth="270" Margin="0,2,0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <local:EnchantmentSetControl x:Name="enchantment1Control" Grid.Column="0"/>
+                <local:EnchantmentSetControl x:Name="enchantment2Control" Grid.Column="1"/>
+                <local:EnchantmentSetControl x:Name="enchantment3Control" Grid.Column="2"/>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
