@@ -12,7 +12,7 @@ MCDSaveEdit Community is an unofficial, maintained fork of Michael Holt's (CutFl
 The original project and its contributors are credited at [CutFlame/MCDSaveEdit](https://github.com/CutFlame/MCDSaveEdit). This fork is maintained at [AC9892/MCDSaveEdit](https://github.com/AC9892/MCDSaveEdit). It is not affiliated with Mojang Studios or Microsoft.
 
 > **Back up your saves.** Editing can produce a save the game cannot load. Community 1.6 automatically creates timestamped backups before replacing existing files, but keeping a separate copy of the whole save directory is still recommended.
-
+![MCDSaveEdit screenshot](Screenshots/screenshot.png)
 
 
 ## Features
